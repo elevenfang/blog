@@ -1,7 +1,5 @@
 package com.elevenfang.blog.config;
 
-import org.springframework.context.annotation.Configuration;
-
 import com.elevenfang.blog.constant.BlogConstant;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
