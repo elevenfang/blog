@@ -23,6 +23,7 @@
 }
 body{
   background-image:url(./resources/image/user_background1.jpg);
+  background-size: 100% 100%;
 }
 
 </style>
@@ -64,7 +65,7 @@ body{
       </#list>
     </table>
     <div id="signup">
-    <a href="/register"><span style="color:DARKRED">注 册</span></a>
+    <a href="register"><span style="color:DARKRED">注 册</span></a>
     </div>
     </br>
     </center>

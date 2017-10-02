@@ -19,6 +19,7 @@ align-items:center;/*设置内层盒子的垂直居中*/
 }
 body{
   background-image:url(./resources/image/user_background2.jpg);
+  background-size: 100% 100%;
 }
 </style>
 
@@ -49,7 +50,7 @@ body{
     </form>
     </br>
     <div id="login">
-    <a href="/login"><span style="color:green">登 录</span></a>
+    <a href="login"><span style="color:green">登 录</span></a>
     </div>
   </center>
 </body>
