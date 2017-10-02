@@ -36,16 +36,14 @@ public abstract class MongoSerive<T> {
 		this.kind = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	public int insert(T t) {
+	public void insert(T t) {
 		int N = this.getCollection().insert(t).getN();
 		logger.info("success insert record:{}", N);
-		return N;
 	}
 
-	public int batchInsert(List<T> targets) {
+	public void batchInsert(List<T> targets) {
 		int N = this.getCollection().insert(targets).getN();
 		logger.info("success batch insert record:{}", N);
-		return N;
 	}
 
 	public T findOne(String query) {
@@ -53,7 +51,7 @@ public abstract class MongoSerive<T> {
 	}
 
 	protected T findOne(String query, Object... objects) {
-		return this.getCollection().findOne(query, objects).as(kind);
+		return this.getCollection().findOne(query, NO_PARAMETERS).as(kind);
 	}
 
 	protected int remove(String query) {

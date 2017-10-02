@@ -1,28 +1,29 @@
 <html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
-<title> 个人博客注册页面</title>
+<head><title> 个人博客注册页面</title>
 
-<link rel="icon" href="./resources/image/favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="./resources/image/favicon.ico" type="image/x-icon">
-<link href="./resources/css/bootstrap.min.css" rel="stylesheet" />
-<script src="./resources/js/jquery.js"></script>
-<script src="./resources/js/user.js"></script> 
 <style>
-#header {
-  text-align: center;
+body, input {
+	font-family: Calibri, Arial;
+	margin: 0px;
+	padding: 0px;
 }
-.outer{width: 80%;height: 400px;margin:0 auto;
-display: flex;/*设置外层盒子display为flex*/
-justify-content:center;/*设置内层盒子的水平居中*/
-align-items:center;/*设置内层盒子的垂直居中*/
+#header h2 {
+	color: white;
+	background-color: #3275A8;
+	height: 50px;
+	padding: 5px 0 0 5px;
+	font-size: 20px;
 }
-body{
-  background-image:url(./resources/image/user_background2.jpg);
-}
+	
+.datatable {margin-bottom:5px;border:1px solid #eee;border-collapse:collapse;width:400px;max-width:100%;font-family:Calibri}
+.datatable th {padding:3px;border:1px solid #888;height:30px;background-color:#B2D487;text-align:center;vertical-align:middle;color:#444444}
+.datatable tr {border:1px solid #888}
+.datatable tr.odd {background-color:#eee}
+.datatable td {padding:2px;border:1px solid #888}
+#content { padding 5px; margin: 5px; text-align: center}
+fieldset { width: 300px; padding: 5px; margin-bottom: 0px; }
+legend { font-weight: bold; }
 </style>
-
-</head>
 
 <body>
 <div id="header">
@@ -31,26 +32,29 @@ body{
 </H2>
 </div>
 
-<div class="outer">
-  <center>
-    <form name="register" id="registerForm" action="signup" method="post" onsubmit="return false;">
-    	<label> 账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号&nbsp;</label>
-      <input type="text" id="userName" name="userName" /><br/>
-    	<label> 密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;</label>
-      <input type="password" id="userPasswd" name="userPasswd"/><br/>
-      <label>&nbsp;确认密码</label>
-      <input type="password" id="confirmPassword" name="confirmPassword"/>
-      <br/>
-      <span id="registerStatus" style="color:yellow"></span>
-      <br/>
-    	<input type="submit" value="   注册   " onclick="return verifyUserRegister();"/>
-      <input type="reset" value="    重置   " />
-      
-    </form>
-    </br>
-    <div id="login">
-    <a href="/login"><span style="color:green">登 录</span></a>
-    </div>
-  </center>
+<div id="content">
+  
+  <fieldset>
+  	<legend>Register</legend>
+  <form name="register" action="register" method="post">
+  	用户名 : <input type="text" name="userName" />	<br/>
+  	密  码: <input type="text" name="userPasswd" />	<br/>
+  	<input type="submit" value="   提交   " />
+  </form>
+  </fieldset>
+  
+  <br/>
+  <table class="datatable">
+  	<tr>
+  		<th>UserName</th>  <th>UserPasswd</th>
+  	</tr>
+    <#list model["userList"] as user>
+	  	<tr>
+	  		<td>${user.userName}</td> <td>${user.userPasswd}</td>
+	  	</tr>
+    </#list>
+  </table>
+
+</div>  
 </body>
 </html>  

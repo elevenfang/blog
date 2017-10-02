@@ -3,6 +3,7 @@ package com.elevenfang.blog.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.elevenfang.blog.model.User;
 import com.elevenfang.blog.mongo.impl.UserMongoServiceImpl;
@@ -34,28 +33,25 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public void init(@ModelAttribute("model") ModelMap model) {
+	public String init(@ModelAttribute("model") ModelMap model) {
 		model.addAttribute("userList", users);
+		return "login";
 	}
 
-	@RequestMapping(value = "/verify", method = RequestMethod.POST)
-	@ResponseBody
-	public String login(@RequestParam("userName") String userName, @RequestParam("userPasswd") String userPasswd) {
-		String response = "FAIL";
-		if (verifyUser(userName, userPasswd)) {
-			logger.info("verify user info success, username is:{}",userName);
-			response = "SUCCESS";
-		}else{
-			logger.error("verify user info fail, please check and resubmit, username is:{}",userName);
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String login(@ModelAttribute("user") User user) {
+		if (isNotNullUser(user)) {
+			long sequence = mongoServiceImpl.getNextSequence("User");
+			logger.info("sequence:{}", sequence);
+			users.add(user);
 		}
-		return response;
+		return "redirect:/login";
+
 	}
 
-	private boolean verifyUser(String userName, String userPasswd) {
-		User user = new User();
-		user.setUserName(userName);
-		user.setUserPasswd(userPasswd);
-		return mongoServiceImpl.verifyUser(user);
+	private boolean isNotNullUser(User user) {
+		return null != user && StringUtils.isNotEmpty(user.getUserName())
+				&& StringUtils.isNotEmpty(user.getUserPasswd());
 	}
 
 }
