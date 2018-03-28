@@ -16,6 +16,10 @@ public class JdkDynamicApp {
 				new JdkProxyService(service));
 		proxyService.sayHello();
 		createProxyClassFile();
+		
+		//use common proxy
+		JdkDynamicService dynamicService = (JdkDynamicService) JdkProxyService.getProxy(JdkDynamicService.class,service);
+		dynamicService.sayHello();
 	}
 
 	private static void createProxyClassFile() throws IOException {
